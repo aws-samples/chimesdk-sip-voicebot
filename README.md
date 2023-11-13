@@ -1,11 +1,5 @@
-## My Project
-
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+# Chime SDK SIP Voice Bot
+This repo is a companion to the blog "Add voice bots to your existing telephony services to using Amazon Chime SDK."
 
 ## Security
 
