@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say>Thank you for calling Your Flower Company. Transferring to the order chatbot.</Say>
+  <Pause length="2"/>
+    <Dial callerId="chimephonenumber">
+        <Sip>
+           sip:chimephonenumber@voiceConnectorId.voiceconnector.chime.aws;secure=true?x-callerid=404-555-1212
+        </Sip>
+    </Dial>
+</Response>

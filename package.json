@@ -1,0 +1,8 @@
+{
+  "name": "chimesdk-sip-voicebot",
+  "packageManager": "yarn@3.6.4",
+  "dependencies": {
+    "cdk-amazon-chime-resources": "^3.0.16",
+    "cdk-lex-zip-import": "^0.0.89"
+  }
+}
