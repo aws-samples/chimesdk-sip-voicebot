@@ -13,7 +13,7 @@ const props = {
 
 const devEnv = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: 'us-east-1',
+  region:  process.env.CDK_DEFAULT_REGION
 };
 
 const app = new App();
