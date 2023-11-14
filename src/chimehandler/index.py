@@ -4,10 +4,21 @@ import logging
 import boto3
 from botocore.client import Config
 lex_client = boto3.client('lexv2-runtime')
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
-LANG = os.environ['LANG'] if os.environ['LANG'] else 'en'
+logger = logging.getLogger()
+try:
+    LOG_LEVEL = os.environ['LOG_LEVEL']
+    if LOG_LEVEL not in ['INFO', 'DEBUG', 'WARN', 'ERROR']:
+        LOG_LEVEL = 'INFO'
+except BaseException:
+    LOG_LEVEL = 'INFO'
+logger.setLevel(LOG_LEVEL)
+
+try:
+    LANG = os.environ['LANG']
+except BaseException:
+    LANG = 'en'
+
 BOT_ALIAS_ID = os.environ['LEX_BOT_ALIAS_ID']
 BOT_ID = os.environ['LEX_BOT_ID']
 AWS_REGION = os.environ['AWS_REGION']
@@ -40,12 +51,12 @@ def lambda_handler(event, context):
         logger.info('-----------------------Action Data-----------------------')
         logger.info('RECV %s %s', LOG_PREFIX,'ACTION_SUCCESSFUL event received')
 
-        speakOutput = 'Thank you for calling the Order Flowers Amazon Lex Bot.  Goodbye for now.'
+        speak_output = 'Thank you for calling the Order Flowers Amazon Lex Bot.  Goodbye for now.'
 
         return respond(
             speak_action(
                 call_id,
-                speakOutput),
+                speak_output),
             hangup_action(call_id))
     elif event_type == 'HANGUP':
         logger.info('RECV %s %s', LOG_PREFIX, 'HANGUP event received')
@@ -81,8 +92,8 @@ def hangup_handler(participants):
 
 
 def unable_to_connect(call_id):
-    speakOutput = 'Sorry, we were unable to process your call.'
-    return respond(speak_action(call_id, speakOutput), hangup_action(call_id))
+    speak_output = 'Sorry, we were unable to process your call.'
+    return respond(speak_action(call_id, speak_output), hangup_action(call_id))
 
 
 def speak_action(call_id, speak_text):
@@ -117,7 +128,7 @@ def hangup_action(call_id):
 
 def start_bot_conversation_action(call_id, account_id, from_number):
     logger.info('SEND %s %s %s', LOG_PREFIX, 'Sending STARTBOTCONVERSAION action to Call-ID', call_id)
-    speakOutput = "Welcome to the Order Flowers SIP Integration Demo using Amazon Chime SDK. To get started, you can say, Order Flowers."
+    speak_output = "Welcome to the Order Flowers SIP Integration Demo using Amazon Chime SDK. To get started, you can say, Order Flowers."
     locale = 'en_US'
     return {
         "SchemaVersion": "1.0",
@@ -146,7 +157,7 @@ def start_bot_conversation_action(call_id, account_id, from_number):
                         },
                         "WelcomeMessages": [
                             {
-                                "Content": speakOutput,
+                                "Content": speak_output,
                                 "ContentType": "PlainText"
                             }]
                     }
