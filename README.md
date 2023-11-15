@@ -7,8 +7,8 @@ This is an [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html) applica
 
 1. Clone this repo to your dev environment. 
 2. cd chimesdk-sip-voicebot
-3. cdk bookstrap
-4. cdk install 
+3. npm install
+4. cdk bookstrap
 5. cdk deploy 
 
 If desired, change the `PHONE_NUMBER_STATE=` setting in the `.env` file to the US state of your choice (2 character code); AZ (Arizona) will be used if left as-is. 
